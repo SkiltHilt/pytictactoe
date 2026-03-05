@@ -1,11 +1,11 @@
 from tictactoe_game.constants import EMPTY, X, O
 from tictactoe_game.board import make_board, render_board
 from tictactoe_game.rules import get_winner, is_draw
-from tictactoe_game.ai import pick_ai_move
+# from tictactoe_game.ai import pick_ai_move
 
-def read_human_move(board: list[str]) -> int:
+def read_player_move(board: list[str], palyer_name: str) -> int:
     while True: 
-        raw = input('Enter your move: ')
+        raw = input(f'{palyer_name} Enter your move ( 1 - 9 ): ')
         
         if not raw.isdigit(): 
             print('Error! Your name is Paravyan Tigran. Your move must be number')
@@ -29,13 +29,13 @@ def play() -> None:
         print('Player X move')
         render_board(board)
 
-        human_index = read_human_move(board)
-        board[human_index] = X
+        index_1 = read_player_move(board, player_name: 'Вася')
+        board[index_1] = X
 
         winner = get_winner(board)
         if winner:
             render_board(board)
-            print('Player X is winner')
+            print(f'Winner {winner}')
             return
         
         if is_draw(board):
@@ -44,16 +44,17 @@ def play() -> None:
             return
         
         print('Player O move')
-        ai_index = pick_ai_move(board)
-        board[ai_index] = O
-        # render_board(board)
-        print('Player O is chose cell:' ai_index + 1)
+        render_board(board)
+        index_2 = read_player_move(board, player_name: 'Олег')
+        board[index_2] = O
 
         winner = get_winner(board)
         if winner:
-            print('Player O is winner')
+            render_board(board)
+            print(f'Winner {winner}')
             return
         
         if is_draw(board):
+            render_board(board)
             print('Game is draw')
             return
