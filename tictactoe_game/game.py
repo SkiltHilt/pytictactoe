@@ -23,38 +23,38 @@ def read_player_move(board: list[str], palyer_name: str) -> int:
 
         return index
 
+def play_turn(board: list[str], symbol: str, player_name: str) -> bool:
+    print(f'Player {player_name}({symbol}) move')
+    render_board(board)
+
+    index = read_player_move(board, player_name)
+    board[index] = symbol
+
+    winner = get_winner(board)
+    if winner:
+        render_board(board)
+        print(f'Winner {winner}')
+        return True
+        
+    if is_draw(board):
+        render_board(board)
+        print('Game is draw')
+        return True
+    
+    return false
+    
+
 def play() -> None:
     board = make_board()
     while True:
-        print('Player X move')
-        render_board(board)
-
-        index_1 = read_player_move(board, player_name: 'Вася')
-        board[index_1] = X
-
-        winner = get_winner(board)
-        if winner:
-            render_board(board)
-            print(f'Winner {winner}')
+        if play_turn(board, X, player_name: 'Вася'):
             return
         
-        if is_draw(board):
-            render_board(board)
-            print('Game is draw')
+        if play_turn(board, O, player_name: 'Олег'):
             return
         
-        print('Player O move')
-        render_board(board)
-        index_2 = read_player_move(board, player_name: 'Олег')
-        board[index_2] = O
+        
 
-        winner = get_winner(board)
-        if winner:
-            render_board(board)
-            print(f'Winner {winner}')
-            return
+
+
         
-        if is_draw(board):
-            render_board(board)
-            print('Game is draw')
-            return
